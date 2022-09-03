@@ -41,25 +41,26 @@ class _MusicState extends State<Music> {
             itemCount: getMusicLength(),
             itemBuilder: (context, index) => Inkwell(
               onTap: () async {
-                if (isPlaying && currentSong != musicList[index]["url"]) {
-                  int result = await audioPlayer.play(musicList[index]["url"]);
+                String url = getUrl(index);
+                if (isPlaying && currentSong != url) {
+                  int result = await audioPlayer.play(url);
                   if (result == 1) {
                     setState(() {
-                      currentSong = musicList[index]["url"];
+                      currentSong = url;
                     });
                   }
                 }
                 setState(() {
-                  currentTitle = musicList[index]["title"];
-                  currentCover = musicList[index]["coverUrl"];
-                  currentSinger = musicList[index]["singer"];
+                  currentTitle = getTitle(index).toString();
+                  currentCover = getCoverUrl(index).toString();
+                  currentSinger = getSinger(index).toString();
                 });
                 print(index);
                 setState(() {});
               },
-              title: musicList[index]["title"],
-              singer: musicList[index]["singer"],
-              cover: musicList[index]["coverUrl"],
+              title: getTitle(index).toString(),
+              singer: getSinger(index).toString(),
+              cover: getCoverUrl(index).toString(),
             ),
           ),
           Container(
