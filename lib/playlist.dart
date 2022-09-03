@@ -1,4 +1,4 @@
-List musicList = [
+List _musicList = [
   {
     'title': "Let SomeBody Go",
     'singer': "Coldplay ft. Selena Gomez",
@@ -42,13 +42,17 @@ List musicList = [
 ];
 
 String? getTitle(int songIndex) {
-  return musicList[songIndex].title;
+  return _musicList[songIndex].title;
 }
 
 String? getSinger(int songIndex) {
-  return musicList[songIndex].singer;
+  return _musicList[songIndex].singer;
 }
 
 String getUrl(int songIndex) {
-  return musicList[songIndex].url;
+  return _musicList[songIndex].url;
+}
+
+int getMusicLength() {
+  return _musicList.length;
 }

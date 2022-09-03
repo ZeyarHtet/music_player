@@ -27,7 +27,7 @@ class _MusicState extends State<Music> {
       backgroundColor: Colors.black12,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         title: const Text(
           "My Music",
           style: TextStyle(color: Colors.black),
@@ -38,7 +38,7 @@ class _MusicState extends State<Music> {
         children: [
           ListView.builder(
             shrinkWrap: true,
-            itemCount: musicList.length,
+            itemCount: getMusicLength(),
             itemBuilder: (context, index) => Inkwell(
               onTap: () async {
                 if (isPlaying && currentSong != musicList[index]["url"]) {
