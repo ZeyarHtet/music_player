@@ -23,6 +23,7 @@ Widget Inkwell({String? title, String? singer, String? cover, onTap}) {
             width: 10.0,
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title!,

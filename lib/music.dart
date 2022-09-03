@@ -12,27 +12,14 @@ class Music extends StatefulWidget {
 }
 
 class _MusicState extends State<Music> {
-  
   String currentTitle = "";
   String currentCover = "";
   String currentSinger = "";
-  IconData btnIcon = Icons.play_arrow;
+  IconData btnIcon = Icons.pause;
 
   AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
   bool isPlaying = true;
   String currentSong = "";
-  void playMusic(String url) async {
-    if (isPlaying && currentSong != url) {
-      audioPlayer.pause();
-      int result = await audioPlayer.play(url);
-      if (result == 1) {
-        setState(() {
-          currentSong = url;
-        });
-      }
-      
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,25 +34,32 @@ class _MusicState extends State<Music> {
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: musicList.length,
-              itemBuilder: (context, index) => Inkwell(
-                onTap: () {
-                  playMusic(musicList[index]["url"]);
-                  setState(() {
-                    currentTitle = musicList[index]["title"];
-                    currentCover = musicList[index]["coverUrl"];
-                    currentSinger = musicList[index]["singer"];
-                  });
-                  print(index);
-                  setState(() {});
-                },
-                title: musicList[index]["title"],
-                singer: musicList[index]["singer"],
-                cover: musicList[index]["coverUrl"],
-              ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: musicList.length,
+            itemBuilder: (context, index) => Inkwell(
+              onTap: () async {
+                if (isPlaying && currentSong != musicList[index]["url"]) {
+                  int result = await audioPlayer.play(musicList[index]["url"]);
+                  if (result == 1) {
+                    setState(() {
+                      currentSong = musicList[index]["url"];
+                    });
+                  }
+                }
+                setState(() {
+                  currentTitle = musicList[index]["title"];
+                  currentCover = musicList[index]["coverUrl"];
+                  currentSinger = musicList[index]["singer"];
+                });
+                print(index);
+                setState(() {});
+              },
+              title: musicList[index]["title"],
+              singer: musicList[index]["singer"],
+              cover: musicList[index]["coverUrl"],
             ),
           ),
           Container(
@@ -126,13 +120,13 @@ class _MusicState extends State<Music> {
                           if (isPlaying) {
                             audioPlayer.pause();
                             setState(() {
-                              btnIcon = Icons.pause;
+                              btnIcon = Icons.play_arrow;
                               isPlaying = false;
                             });
                           } else {
                             audioPlayer.resume();
                             setState(() {
-                              btnIcon = Icons.play_arrow;
+                              btnIcon = Icons.pause;
                               isPlaying = true;
                             });
                           }
