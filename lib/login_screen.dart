@@ -11,15 +11,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _personController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black12,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
-          title: const Text("Login",),
-          
+          title: const Text(
+            "Login",
+          ),
         ),
         body: Center(
           child: Column(
@@ -39,13 +42,25 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      child: Icon(_obscureText
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                    ),
                     border: InputBorder.none,
                     hintText: "Enter your password",
                     labelText: "Password",
                   ),
                   controller: _passwordController,
+                  // obscureText: true,
+                  obscureText: _obscureText,
                 ),
               ),
               ElevatedButton(
@@ -61,12 +76,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          backgroundColor :Colors.red,
-                          content: Text("Your username or password is incorrect!"),
+                          backgroundColor: Colors.red,
+                          content:
+                              Text("Your username or password is incorrect!"),
                         ),
                       );
                     }
-                  } else{
+                  } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         backgroundColor: Colors.red,

@@ -28,6 +28,7 @@ class _MusicState extends State<Music> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
+        elevation: 0,
         title: const Text(
           "My Music",
           style: TextStyle(color: Colors.black),

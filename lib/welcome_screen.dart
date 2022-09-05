@@ -7,6 +7,11 @@ class FirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black12,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,6 +36,7 @@ class FirstScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/register');
+                
               },
               child: const Text('Register'),
             ),
@@ -47,9 +53,7 @@ class FirstScreen extends StatelessWidget {
         ),
       ),
 
-      // body: Center(
-
-      // ),
+      
     );
   }
 }

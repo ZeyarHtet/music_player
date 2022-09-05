@@ -11,6 +11,7 @@ class RegisterScreen2 extends StatefulWidget {
 class _RegisterScreenState2 extends State<RegisterScreen2> {
   final TextEditingController _personController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class _RegisterScreenState2 extends State<RegisterScreen2> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text("Register Screen"),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
@@ -38,20 +40,30 @@ class _RegisterScreenState2 extends State<RegisterScreen2> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.lock,
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                    icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off),
                   ),
                   border: InputBorder.none,
                   hintText: "Enter your password",
                   labelText: "Password",
                 ),
                 controller: _passwordController,
+                // obscureText: true,
+                obscureText: _obscureText,
               ),
             ),
             Center(
               child: ElevatedButton(
-                
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   if (_personController.text != "" &&
